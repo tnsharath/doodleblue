@@ -10,8 +10,10 @@
         android:id="@+id/textView"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:textColor="@color/colorPrimary"
         android:text="Inka Restaurant"
-        android:textSize="14sp"
+        android:textSize="18sp"
+        android:layout_margin="8dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
+        android:layout_marginTop="8dp"
         android:id="@+id/textView3"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -38,9 +41,14 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@color/colorPrimary"
+        android:padding="4dp"
         android:text="Book a Table"
+        android:textColor="@color/colorLight"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />

@@ -1,6 +1,5 @@
 package com.vintile.restaurantapp.ui.restuarantmenu;
 
-
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Button;
-import android.widget.Toast;
-
 import com.vintile.restaurantapp.R;
 import com.vintile.restaurantapp.models.RestuarantMenu;
 import com.vintile.restaurantapp.ui.cart.CartActivity;
@@ -48,13 +45,14 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.work);
+
         recyclerView = findViewById(R.id.rv_menu);
         btnCheckout = findViewById(R.id.btnCheckout);
         viewModel = new ViewModelProvider(this, providerFactory).get(MainViewModel.class);
-
         initRecyclerView();
         subscribeObserver();
+
 
         btnCheckout.setOnClickListener(v -> {
             updateCartTable(adapter.getCartItem());
@@ -87,11 +85,22 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
 
     @Override
     public void updateCount(int count) {
-        //TODO update cart count
-        Toast.makeText(this, "" + count, Toast.LENGTH_SHORT).show();
+        if (count > 0) {
+            btnCheckout.setEnabled(true);
+            btnCheckout.setText(" VIEW CART (" + count + " ITEMS)");
+        } else {
+            btnCheckout.setEnabled(false);
+            btnCheckout.setText(" VIEW CART (Empty)");
+        }
+
     }
 
     private void updateCartTable(Map<String, RestuarantMenu> cartChoice) {
         viewModel.updateCartTable(cartChoice);
+    }
+
+    @Override
+    public void updatePrice(Map<String, RestuarantMenu> cartChoice) {
+
     }
 }

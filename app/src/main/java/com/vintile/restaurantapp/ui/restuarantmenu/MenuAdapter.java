@@ -2,6 +2,7 @@ package com.vintile.restaurantapp.ui.restuarantmenu;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.vintile.restaurantapp.util.MainAdapterInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,12 +54,22 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setMenus(List<RestuarantMenu> restuarantMenus) {
         this.restuarantMenus = restuarantMenus;
+        refreshCount();
         notifyDataSetChanged();
+    }
+
+    private void refreshCount() {
+        int cnt= 0;
+        for (RestuarantMenu menu: restuarantMenus){
+            cnt += Integer.parseInt(menu.getItemCount());
+        }
+        count = cnt;
     }
 
     public void refreshList(List<RestuarantMenu> restuarantMenus) {
         this.restuarantMenus.clear();
         this.restuarantMenus = restuarantMenus;
+        refreshCount();
         notifyDataSetChanged();
     }
 
@@ -163,7 +175,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             count += 1;
         else
             count -= 1;
-
         mainAdapterInterface.updateCount(count);
+        mainAdapterInterface.updatePrice(cartChoice);
     }
 }
