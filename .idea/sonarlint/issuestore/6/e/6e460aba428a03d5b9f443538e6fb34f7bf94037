@@ -1,0 +1,5 @@
+
+\squid:S1610"9Convert the abstract class "AppModule" into an interface.(¡¹–üÿÿÿÿ8˜“.
+squid:UselessImportCheck"QRemove this unused import 'com.vintile.restaurantapp.network.ServerToRoomUpdate'.(±€øÿÿÿÿ8ôƒĞš.
+Vsquid:S1118":Add a private constructor to hide the implicit public one.(¡¹–üÿÿÿÿ
+psquid:UselessImportCheck"FRemove this unused import 'com.vintile.restaurantapp.network.MainApi'.(œ©j8ôƒĞš.

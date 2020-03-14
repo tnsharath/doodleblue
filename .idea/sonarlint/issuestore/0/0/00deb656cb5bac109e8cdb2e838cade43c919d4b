@@ -1,0 +1,10 @@
+
+Gsquid:S1659H"$Declare "tvCost" on a separate line.(–ÆÇ÷úÿÿÿÿ8¯ÎüŒ.
+Csquid:S1659I"%Declare "tvCount" on a separate line.(îó›°8Ç©ÒüŒ.
+Qsquid:S1135ƒ"2Complete the task associated to this TODO comment.(­Óƒé8ÿ„­ıŒ.
+Csquid:S1659I"%Declare "btnPlus" on a separate line.(îó›°8Ç©ÒüŒ.
+Œsquid:S1319¡"mThe return type of this method should be an interface such as "Map" rather than the implementation "HashMap".(ú¥‚8ŠÛ¸£.
+`squid:S1126e"BReplace this if-then-else statement by a single method invocation.(äæÎ8ƒª©ıŒ.
+nsquid:CommentedOutCodeLine@"<This block of commented-out lines of code should be removed.(Õ»­ëüÿÿÿÿ8Æì§üŒ.
+csquid:HiddenFieldCheckb":Rename "count" which hides the field declared at line 159.(Ê×Ã²8ï«Û¢.
+|squid:S1450M"YRemove the "countInInt" field and declare it as a local variable in the relevant methods.(ÓĞ…ëûÿÿÿÿ8ğ¿ãš.

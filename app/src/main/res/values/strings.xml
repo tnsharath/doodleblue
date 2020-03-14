@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">RestaurantApp</string>
+    <string name="review_order">Review Order</string>
+    <string name="show_more"><u>Show more</u></string>
+    <string name="add">Add</string>
+</resources>
