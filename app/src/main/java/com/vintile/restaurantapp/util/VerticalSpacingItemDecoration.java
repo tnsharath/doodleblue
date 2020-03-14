@@ -6,7 +6,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
- * Created by Sharath on 2020/02/14
+ * Created by Sharath on 2020/03/14
  **/
 public class VerticalSpacingItemDecoration extends RecyclerView.ItemDecoration {
 

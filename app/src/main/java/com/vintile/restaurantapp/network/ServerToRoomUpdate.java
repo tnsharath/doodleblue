@@ -32,18 +32,13 @@ public class ServerToRoomUpdate {
     }
 
     private static final String TAG = "ServerToRoomUpdate";
-    MainApi mainApi;
     public void loadBonusList(final Context context) {
 
         appDatabase = AppDatabase.getInstance(context);
 
-
-   //     Call<List<RestuarantMenu>> call =  mainApi.getRestuarantMenu();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-           //     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
 
         MainApi api = retrofit.create(MainApi.class);
@@ -92,7 +87,7 @@ public class ServerToRoomUpdate {
         try {
             appDatabase.menuDao().insertAll(bonusProductsModels);
         }catch (Exception e){
-
+            Log.d(TAG, "run: unsucess" + e);
         }
     }
 

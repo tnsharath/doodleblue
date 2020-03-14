@@ -10,7 +10,7 @@ import com.vintile.restaurantapp.models.RestuarantMenu;
 import com.vintile.restaurantapp.util.AppConstants;
 
 /**
- * Created by Sharath TN on 2019-07-11.
+ * Created by Sharath TN on 2020-03-13.
  */
 @Database(entities = {RestuarantMenu.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

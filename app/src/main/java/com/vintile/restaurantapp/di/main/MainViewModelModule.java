@@ -10,7 +10,7 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 
 /**
- * Created by Sharath on 2020/02/12
+ * Created by Sharath on 2020/03/13
  **/
 @Module
 public abstract class MainViewModelModule {

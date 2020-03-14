@@ -1,7 +1,5 @@
 package com.vintile.restaurantapp.ui.restuarantmenu;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -18,7 +16,6 @@ import javax.inject.Inject;
  * Created by Sharath on 2020/03/13
  **/
 public class MainViewModel extends ViewModel {
-    private static final String TAG = "MainViewModel";
 
     private  Repository repository;
     private LiveData<List<RestuarantMenu>> searchResults;
@@ -43,9 +40,8 @@ public class MainViewModel extends ViewModel {
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
             RestuarantMenu menu = (RestuarantMenu) pair.getValue();
-            Log.d(TAG, "updateCartTable: " + menu.getSelected());
             repository.updateCart(menu);
-            it.remove(); // avoids a ConcurrentModificationException
+            it.remove();
         }
     }
 }

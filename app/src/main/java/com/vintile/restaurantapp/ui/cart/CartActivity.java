@@ -28,7 +28,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 //TODO total count;
 public class CartActivity extends DaggerAppCompatActivity implements MainAdapterInterface {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "CartActivity";
 
     private CartViewModel viewModel;
 
@@ -57,9 +57,7 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
         initRecyclerView();
         subscribeObserver();
 
-        tvShowMore.setOnClickListener(v -> {
-            showMore();
-        });
+        tvShowMore.setOnClickListener(v -> showMore());
     }
 
     private void showMore() {
@@ -69,7 +67,6 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
     private List<RestuarantMenu> cartMenu = new ArrayList<>();
 
     double price = 0.0;
-    //TODO show more button
     private void subscribeObserver() {
         viewModel.getMenu().observe(this, menus -> {
             Log.d(TAG, "onChanged: Success " + menus.size());
@@ -102,7 +99,7 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
 
     @Override
     public void updateCount(int count) {
-
+        //Unused
     }
 
 
@@ -115,13 +112,11 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
             RestuarantMenu menu = (RestuarantMenu) pair.getValue();
             price += Integer.parseInt(menu.getPrice()) * Integer.parseInt(menu.getItemCount());
 
-            it.remove(); // avoids a ConcurrentModificationException
+            it.remove();
         }
 
 
         tvTotalCost.setText(String.valueOf(price));
 
-    }
-    public void pay(View view) {
     }
 }

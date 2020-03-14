@@ -1,11 +1,7 @@
 package com.vintile.restaurantapp.di.cart;
 
-
-import android.app.Application;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.vintile.restaurantapp.data.Repository;
 import com.vintile.restaurantapp.network.MainApi;
 import com.vintile.restaurantapp.ui.cart.CartActivity;
 
@@ -23,7 +19,7 @@ import retrofit2.Retrofit;
 public class CartModule {
 
     @Provides
-    static MainAdapterInterface provideInterface(CartActivity cartActivity){
+    static MainAdapterInterface provideInterface(CartActivity cartActivity) {
         return cartActivity;
     }
 
@@ -36,14 +32,10 @@ public class CartModule {
     static LinearLayoutManager provideLinearLayoutManager(CartActivity cartActivity) {
         return new LinearLayoutManager(cartActivity);
     }
+
     @Provides
     static MainApi provideMainApi(Retrofit retrofit) {
         return retrofit.create(MainApi.class);
-    }
-
-    @Provides
-    static Repository providesRepository(Application application){
-        return new Repository(application);
     }
 
 

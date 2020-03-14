@@ -1,7 +1,7 @@
 package com.vintile.restaurantapp.util;
 
 /**
- * Created by Sharath on 2020/02/10
+ * Created by Sharath on 2020/03/12
  **/
 public class AppConstants {
     public static final String BASE_URL = "https://api.myjson.com/bins/";

@@ -1,8 +1,6 @@
 package com.vintile.restaurantapp.ui.restuarantmenu;
 
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +16,6 @@ import com.vintile.restaurantapp.util.MainAdapterInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +26,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<RestuarantMenu> restuarantMenus = new ArrayList<>();
 
-    MainAdapterInterface mainAdapterInterface;
+    private MainAdapterInterface mainAdapterInterface;
 
     public MenuAdapter(MainAdapterInterface mainAdapterInterface) {
         this.mainAdapterInterface = mainAdapterInterface;
@@ -59,8 +56,8 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void refreshCount() {
-        int cnt= 0;
-        for (RestuarantMenu menu: restuarantMenus){
+        int cnt = 0;
+        for (RestuarantMenu menu : restuarantMenus) {
             cnt += Integer.parseInt(menu.getItemCount());
         }
         count = cnt;
@@ -73,19 +70,22 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    private static final String TAG = "MenuAdapter";
-    Map<String, RestuarantMenu> cartChoice = new HashMap<>();
+    private Map<String, RestuarantMenu> cartChoice = new HashMap<>();
+
     public class PostViewHolder extends RecyclerView.ViewHolder {
 
         private TextView title;
-        private TextView tvIngredients, tvCost;
-        private TextView btnMinus, tvCount, btnPlus;
+        private TextView tvIngredients;
+        private TextView tvCost;
+        private TextView btnMinus;
+        private TextView tvCount;
+        private TextView btnPlus;
         private Button btnAdd;
 
         private RelativeLayout countPicker;
         private int countInInt = 0;
 
-        public PostViewHolder(@NonNull View itemView) {
+        PostViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.tvTitle);
             tvIngredients = itemView.findViewById(R.id.tvIngredients);
@@ -97,9 +97,8 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             btnAdd = itemView.findViewById(R.id.btnAdd);
         }
 
-        public void bind(RestuarantMenu restuarantMenu) {
+        void bind(RestuarantMenu restuarantMenu) {
             RestuarantMenu restuarantMenuSelected = restuarantMenu;
-            Log.d(TAG, "bind: " + restuarantMenu.getIngredients() + "  " + restuarantMenu.getPrice() + "  " + restuarantMenu.getItemCount());
             title.setText(restuarantMenu.getTitle());
             tvIngredients.setText(restuarantMenu.getIngredients());
             tvCost.setText(restuarantMenu.getPrice());
@@ -170,7 +169,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return cartChoice;
     }
 
-    void updateCount(boolean isInc) {
+    private void updateCount(boolean isInc) {
         if (isInc)
             count += 1;
         else

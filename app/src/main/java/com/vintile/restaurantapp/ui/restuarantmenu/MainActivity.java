@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.Button;
@@ -26,8 +25,6 @@ import dagger.android.support.DaggerAppCompatActivity;
 
 public class MainActivity extends DaggerAppCompatActivity implements MainAdapterInterface {
 
-    private static final String TAG = "MainActivity";
-
     private MainViewModel viewModel;
     Button btnCheckout;
 
@@ -45,7 +42,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.work);
+        setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.rv_menu);
         btnCheckout = findViewById(R.id.btnCheckout);
@@ -62,10 +59,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
 
     private void subscribeObserver() {
         viewModel.getDataFromAPI();
-        viewModel.getMenu().observe(this, menus -> {
-            Log.d(TAG, "onChanged: Success");
-            adapter.setMenus(menus);
-        });
+        viewModel.getMenu().observe(this, menus -> adapter.setMenus(menus));
     }
 
     private void initRecyclerView() {
@@ -99,8 +93,9 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         viewModel.updateCartTable(cartChoice);
     }
 
+    //TODO Validate price and count
     @Override
     public void updatePrice(Map<String, RestuarantMenu> cartChoice) {
-
+        //Unused
     }
 }

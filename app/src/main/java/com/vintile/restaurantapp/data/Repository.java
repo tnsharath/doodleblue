@@ -23,21 +23,29 @@ import static android.content.Context.JOB_SCHEDULER_SERVICE;
  **/
 public class Repository {
 
-    private LiveData<List<RestuarantMenu>> menuList;
-
     private Context context;
-    AppDatabase db;
-    public Repository(Context context){
-        db = AppDatabase.getInstance(context);
-        //TODO inject my application
-        this.context = context;
 
+    private AppDatabase db;
+
+
+
+    public Repository(Context context, AppDatabase db) {
+        this.context = context;
+        this.db = db;
     }
 
+    /**
+     * Get all the menu.
+     *
+     * @return RestuarantMenu
+     */
     public LiveData<List<RestuarantMenu>> getMenuList() {
         return db.menuDao().getAll();
     }
 
+    /**
+     * Schedule job to update menu daily
+     */
     public void scheduleJobGetBonusProducts() {
         JobScheduler jobScheduler = (JobScheduler) context
                 .getSystemService(JOB_SCHEDULER_SERVICE);
@@ -50,13 +58,21 @@ public class Repository {
         Objects.requireNonNull(jobScheduler).schedule(jobInfo);
     }
 
+    /**
+     * getCart items
+     *
+     * @return cartItems
+     */
     public LiveData<List<RestuarantMenu>> getCartList() {
-        return  db.menuDao().getCartMenu();
+        return db.menuDao().getCartMenu();
     }
 
+    /**
+     * Update table after choosing menu for order.
+     *
+     * @param restuarantMenu list of items
+     */
     public void updateCart(RestuarantMenu restuarantMenu) {
         new ServerToRoomUpdate().updateTable(context, restuarantMenu);
     }
-
-
 }

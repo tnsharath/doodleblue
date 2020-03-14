@@ -9,12 +9,10 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 
 /**
- * Created by Sharath on 2020/02/10
+ * Created by Sharath on 2020/03/12
  **/
 
 public class ViewModelProviderFactory implements ViewModelProvider.Factory {
-
-    private static final String TAG = "ViewModelProviderFactor";
 
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 

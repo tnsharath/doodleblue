@@ -5,4 +5,9 @@
     <string name="add">Add</string>
     <string name="menu">Menu</string>
     <string name="starter">Starter</string>
+    <string name="place_order">Place Order</string>
+    <string name="total_cost">Total Cost</string>
+
+    <string name="decrement">-</string>
+    <string name="increment">+</string>
 </resources>
