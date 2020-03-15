@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="56dp">
 
@@ -15,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrow_back" />
+        app:srcCompat="@drawable/ic_arrow_back"
+        android:contentDescription="@string/back_button" />
 
     <ImageButton
         android:id="@+id/info"
@@ -27,7 +27,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_info" />
+        app:srcCompat="@drawable/ic_info"
+        android:contentDescription="@string/information_button" />
 
     <ImageButton
         android:id="@+id/send"
@@ -39,5 +40,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/info"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_open" />
+        app:srcCompat="@drawable/ic_open"
+        android:contentDescription="@string/upload_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

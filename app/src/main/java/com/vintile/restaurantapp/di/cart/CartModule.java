@@ -7,6 +7,7 @@ import com.vintile.restaurantapp.ui.cart.CartActivity;
 
 import com.vintile.restaurantapp.ui.restuarantmenu.MenuAdapter;
 import com.vintile.restaurantapp.util.MainAdapterInterface;
+import com.vintile.restaurantapp.util.VerticalSpacingItemDecoration;
 
 import dagger.Module;
 import dagger.Provides;
@@ -36,6 +37,11 @@ public class CartModule {
     @Provides
     static MainApi provideMainApi(Retrofit retrofit) {
         return retrofit.create(MainApi.class);
+    }
+
+    @Provides
+    static VerticalSpacingItemDecoration providesVerticalSpace(){
+        return new VerticalSpacingItemDecoration(15);
     }
 
 

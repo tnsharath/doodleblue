@@ -3,7 +3,6 @@ package com.vintile.restaurantapp.models;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.Expose;
@@ -36,11 +35,7 @@ public class RestuarantMenu {
     @Expose
     private String ingredients;
 
-    @Ignore
-    public RestuarantMenu() {
-    }
-
-    public RestuarantMenu(String itemId, String title, String category, String itemCount, String selected, String price, String ingredients) {
+    public RestuarantMenu(@NonNull String itemId, String title, String category, String itemCount, String selected, String price, String ingredients) {
         this.itemId = itemId;
         this.title = title;
         this.category = category;

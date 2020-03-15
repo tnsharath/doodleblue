@@ -12,6 +12,7 @@ import javax.inject.Provider;
  * Created by Sharath on 2020/03/12
  **/
 
+@SuppressWarnings("unchecked")
 public class ViewModelProviderFactory implements ViewModelProvider.Factory {
 
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
@@ -21,6 +22,7 @@ public class ViewModelProviderFactory implements ViewModelProvider.Factory {
         this.creators = creators;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);

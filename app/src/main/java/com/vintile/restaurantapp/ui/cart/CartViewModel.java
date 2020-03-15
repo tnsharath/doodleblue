@@ -24,7 +24,7 @@ public class CartViewModel extends ViewModel {
     private final MutableLiveData<Map<String, RestuarantMenu>> cartList = new MutableLiveData<>();
     private final Map<String, RestuarantMenu> cart;
 
-    Repository repository;
+    private final Repository repository;
 
     @Inject
     public CartViewModel(Repository repository) {

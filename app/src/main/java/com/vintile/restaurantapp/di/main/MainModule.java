@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.vintile.restaurantapp.ui.restuarantmenu.MainActivity;
 import com.vintile.restaurantapp.ui.restuarantmenu.MenuAdapter;
 import com.vintile.restaurantapp.util.MainAdapterInterface;
+import com.vintile.restaurantapp.util.VerticalSpacingItemDecoration;
 
 import dagger.Module;
 import dagger.Provides;
@@ -29,6 +30,11 @@ public class MainModule {
     @Provides
     static LinearLayoutManager provideLinearLayoutManager(MainActivity mainActivity) {
         return new LinearLayoutManager(mainActivity);
+    }
+
+    @Provides
+    static VerticalSpacingItemDecoration providesVerticalSpace(){
+        return new VerticalSpacingItemDecoration(15);
     }
 
 
