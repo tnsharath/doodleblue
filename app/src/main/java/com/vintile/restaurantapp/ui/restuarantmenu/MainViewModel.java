@@ -45,6 +45,7 @@ public class MainViewModel extends ViewModel {
             repository.updateCart(menu);
         }
     }
+
     public void setCartList(RestuarantMenu menu) {
         cart.put(menu.getItemId(), menu);
         setCartListCount();

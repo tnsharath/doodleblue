@@ -24,8 +24,11 @@ public class CartViewModel extends ViewModel {
     private final MutableLiveData<Map<String, RestuarantMenu>> cartList = new MutableLiveData<>();
     private final Map<String, RestuarantMenu> cart;
 
+    Repository repository;
+
     @Inject
     public CartViewModel(Repository repository) {
+        this.repository = repository;
         searchResults = repository.getCartList();
         cart = new HashMap<>();
     }
@@ -58,6 +61,12 @@ public class CartViewModel extends ViewModel {
         cart.put(menu.getItemId(), menu);
         cartList.setValue(cart);
         updateTotalPrice();
+    }
+    public void updateCartTable() {
+        for (Map.Entry<String, RestuarantMenu> stringRestuarantMenuEntry : cart.entrySet()) {
+            RestuarantMenu menu = (RestuarantMenu) ((Map.Entry) stringRestuarantMenuEntry).getValue();
+            repository.updateCart(menu);
+        }
     }
 
 }

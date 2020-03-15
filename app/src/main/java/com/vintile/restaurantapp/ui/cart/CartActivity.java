@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -90,6 +91,22 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
         VerticalSpacingItemDecoration itemDecoration = new VerticalSpacingItemDecoration(15);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        viewModel.updateCartTable();
     }
 
 

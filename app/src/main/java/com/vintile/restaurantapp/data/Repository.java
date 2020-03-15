@@ -53,7 +53,7 @@ public class Repository {
         ComponentName componentName = new ComponentName(context,
                 DbUpdateService.class);
         JobInfo jobInfo = new JobInfo.Builder(1, componentName)
-                .setPeriodic(AppConstants.schedulerTime)
+                .setPeriodic(AppConstants.SCHEDULER_TIME)
                 .setPersisted(true).build();
         Objects.requireNonNull(jobScheduler).schedule(jobInfo);
     }

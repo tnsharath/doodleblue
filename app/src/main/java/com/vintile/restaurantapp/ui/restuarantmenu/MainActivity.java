@@ -6,15 +6,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.Button;
+
 import com.vintile.restaurantapp.R;
 import com.vintile.restaurantapp.models.RestuarantMenu;
 import com.vintile.restaurantapp.ui.cart.CartActivity;
 import com.vintile.restaurantapp.util.MainAdapterInterface;
 import com.vintile.restaurantapp.util.VerticalSpacingItemDecoration;
 import com.vintile.restaurantapp.viewmodels.ViewModelProviderFactory;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -41,6 +42,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Objects.requireNonNull(getSupportActionBar()).hide();
         recyclerView = findViewById(R.id.rv_menu);
         btnCheckout = findViewById(R.id.btnCheckout);
         viewModel = new ViewModelProvider(this, providerFactory).get(MainViewModel.class);
@@ -71,7 +73,7 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         viewModel.getDataFromAPI();
         viewModel.getMenu().observe(this, menus -> {
             adapter.setMenus(menus);
-            for (RestuarantMenu menu: menus){
+            for (RestuarantMenu menu : menus) {
                 viewModel.setCartList(menu);
             }
         });
@@ -82,14 +84,6 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         VerticalSpacingItemDecoration itemDecoration = new VerticalSpacingItemDecoration(15);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(adapter);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
     }
 
     private void updateCartTable() {

@@ -52,6 +52,7 @@ public class ServerToRoomUpdate {
 
             @Override
             public void onFailure(@NonNull Call<List<RestuarantMenu>> call,@NonNull Throwable t) {
+                //unhandled exception
             }
         });
     }
