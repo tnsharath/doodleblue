@@ -1,12 +1,13 @@
 package com.vintile.restaurantapp.ui.restuarantmenu;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.vintile.restaurantapp.data.Repository;
 import com.vintile.restaurantapp.models.RestuarantMenu;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +18,17 @@ import javax.inject.Inject;
  **/
 public class MainViewModel extends ViewModel {
 
-    private  Repository repository;
-    private LiveData<List<RestuarantMenu>> searchResults;
+    private final Repository repository;
+    private final LiveData<List<RestuarantMenu>> searchResults;
+    private final Map<String, RestuarantMenu> cart;
+    private final MutableLiveData<Integer> cartCount;
 
     @Inject
     public MainViewModel(Repository repository) {
         this.repository = repository;
         searchResults = repository.getMenuList();
+        cartCount = new MutableLiveData<>();
+        cart = new HashMap<>();
     }
 
     public void getDataFromAPI() {
@@ -34,14 +39,31 @@ public class MainViewModel extends ViewModel {
         return searchResults;
     }
 
-    public void updateCartTable(Map<String, RestuarantMenu> cartChoice) {
-
-        Iterator it = cartChoice.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            RestuarantMenu menu = (RestuarantMenu) pair.getValue();
+    public void updateCartTable() {
+        for (Map.Entry<String, RestuarantMenu> stringRestuarantMenuEntry : cart.entrySet()) {
+            RestuarantMenu menu = (RestuarantMenu) ((Map.Entry) stringRestuarantMenuEntry).getValue();
             repository.updateCart(menu);
-            it.remove();
         }
+    }
+    public void setCartList(RestuarantMenu menu) {
+        cart.put(menu.getItemId(), menu);
+        setCartListCount();
+    }
+
+    private void setCartListCount() {
+        cartCount.setValue(cartItemCount());
+    }
+
+    private int cartItemCount(){
+        int count = 0;
+        for (Map.Entry<String, RestuarantMenu> stringRestuarantMenuEntry : cart.entrySet()) {
+            RestuarantMenu menu = (RestuarantMenu) ((Map.Entry) stringRestuarantMenuEntry).getValue();
+            count += Integer.parseInt(menu.getItemCount());
+        }
+        return count;
+    }
+
+    public LiveData<Integer> getCartItemCount(){
+        return cartCount;
     }
 }

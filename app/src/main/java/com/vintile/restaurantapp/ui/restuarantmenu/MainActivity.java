@@ -16,9 +16,6 @@ import com.vintile.restaurantapp.util.MainAdapterInterface;
 import com.vintile.restaurantapp.util.VerticalSpacingItemDecoration;
 import com.vintile.restaurantapp.viewmodels.ViewModelProviderFactory;
 
-
-import java.util.Map;
-
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
@@ -26,7 +23,7 @@ import dagger.android.support.DaggerAppCompatActivity;
 public class MainActivity extends DaggerAppCompatActivity implements MainAdapterInterface {
 
     private MainViewModel viewModel;
-    Button btnCheckout;
+    private Button btnCheckout;
 
     @Inject
     MenuAdapter adapter;
@@ -50,16 +47,34 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         initRecyclerView();
         subscribeObserver();
 
-
+        setItemCount();
         btnCheckout.setOnClickListener(v -> {
-            updateCartTable(adapter.getCartItem());
+            updateCartTable();
             startActivity(new Intent(this, CartActivity.class));
+        });
+    }
+
+    private void setItemCount() {
+        viewModel.getCartItemCount().observe(this, count -> {
+
+            if (count > 0) {
+                btnCheckout.setEnabled(true);
+                btnCheckout.setText(" VIEW CART (" + count + " ITEMS)");
+            } else {
+                btnCheckout.setEnabled(false);
+                btnCheckout.setText(" VIEW CART (Empty)");
+            }
         });
     }
 
     private void subscribeObserver() {
         viewModel.getDataFromAPI();
-        viewModel.getMenu().observe(this, menus -> adapter.setMenus(menus));
+        viewModel.getMenu().observe(this, menus -> {
+            adapter.setMenus(menus);
+            for (RestuarantMenu menu: menus){
+                viewModel.setCartList(menu);
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -77,25 +92,12 @@ public class MainActivity extends DaggerAppCompatActivity implements MainAdapter
         return true;
     }
 
-    @Override
-    public void updateCount(int count) {
-        if (count > 0) {
-            btnCheckout.setEnabled(true);
-            btnCheckout.setText(" VIEW CART (" + count + " ITEMS)");
-        } else {
-            btnCheckout.setEnabled(false);
-            btnCheckout.setText(" VIEW CART (Empty)");
-        }
-
+    private void updateCartTable() {
+        viewModel.updateCartTable();
     }
 
-    private void updateCartTable(Map<String, RestuarantMenu> cartChoice) {
-        viewModel.updateCartTable(cartChoice);
-    }
-
-    //TODO Validate price and count
     @Override
-    public void updatePrice(Map<String, RestuarantMenu> cartChoice) {
-        //Unused
+    public void updatePrice(RestuarantMenu cartChoice) {
+        viewModel.setCartList(cartChoice);
     }
 }

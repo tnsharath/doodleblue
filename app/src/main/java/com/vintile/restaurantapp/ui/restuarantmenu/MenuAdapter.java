@@ -15,9 +15,7 @@ import com.vintile.restaurantapp.models.RestuarantMenu;
 import com.vintile.restaurantapp.util.MainAdapterInterface;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Sharath on 2020/03/12
@@ -26,7 +24,8 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<RestuarantMenu> restuarantMenus = new ArrayList<>();
 
-    private MainAdapterInterface mainAdapterInterface;
+    private final MainAdapterInterface mainAdapterInterface;
+    private int countInInt = 0;
 
     public MenuAdapter(MainAdapterInterface mainAdapterInterface) {
         this.mainAdapterInterface = mainAdapterInterface;
@@ -51,39 +50,26 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public void setMenus(List<RestuarantMenu> restuarantMenus) {
         this.restuarantMenus = restuarantMenus;
-        refreshCount();
         notifyDataSetChanged();
-    }
-
-    private void refreshCount() {
-        int cnt = 0;
-        for (RestuarantMenu menu : restuarantMenus) {
-            cnt += Integer.parseInt(menu.getItemCount());
-        }
-        count = cnt;
     }
 
     public void refreshList(List<RestuarantMenu> restuarantMenus) {
         this.restuarantMenus.clear();
         this.restuarantMenus = restuarantMenus;
-        refreshCount();
         notifyDataSetChanged();
     }
 
-    private Map<String, RestuarantMenu> cartChoice = new HashMap<>();
+    private class PostViewHolder extends RecyclerView.ViewHolder {
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
+        private final TextView title;
+        private final TextView tvIngredients;
+        private final TextView tvCost;
+        private final TextView btnMinus;
+        private final TextView tvCount;
+        private final TextView btnPlus;
+        private final Button btnAdd;
 
-        private TextView title;
-        private TextView tvIngredients;
-        private TextView tvCost;
-        private TextView btnMinus;
-        private TextView tvCount;
-        private TextView btnPlus;
-        private Button btnAdd;
-
-        private RelativeLayout countPicker;
-        private int countInInt = 0;
+        private final RelativeLayout countPicker;
 
         PostViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -98,7 +84,7 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         void bind(RestuarantMenu restuarantMenu) {
-            RestuarantMenu restuarantMenuSelected = restuarantMenu;
+
             title.setText(restuarantMenu.getTitle());
             tvIngredients.setText(restuarantMenu.getIngredients());
             tvCost.setText(restuarantMenu.getPrice());
@@ -113,41 +99,36 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
 
             btnMinus.setOnClickListener(v -> {
-                if (countInInt > 1) {
-                    countInInt -= 1;
-                    tvCount.setText(String.valueOf(countInInt));
-                    updateCount(false);
-                    restuarantMenuSelected.setItemCount(String.valueOf(countInInt));
-                    cartChoice.put(restuarantMenuSelected.getItemId(), restuarantMenuSelected);
-                } else {
-                    countInInt -= 1;
-                    tvCount.setText(String.valueOf(countInInt));
+                countInInt = Integer.parseInt(restuarantMenu.getItemCount()) - 1;
+                tvCount.setText(String.valueOf(countInInt));
+                if (countInInt < 1) {
                     changeCounter(true);
-                    updateCount(false);
-                    cartChoice.remove(restuarantMenuSelected.getItemId());
+                    restuarantMenu.setSelected("0");
                 }
+                restuarantMenu.setItemCount(String.valueOf(countInInt));
+                mainAdapterInterface.updatePrice(restuarantMenu);
             });
+
             btnPlus.setOnClickListener(v -> {
                 if (countInInt < 20) {
-                    countInInt += 1;
+                    countInInt = Integer.parseInt(restuarantMenu.getItemCount()) + 1;
                     tvCount.setText(String.valueOf(countInInt));
-                    updateCount(true);
-                    restuarantMenuSelected.setSelected("1");
-                    restuarantMenuSelected.setItemCount(String.valueOf(countInInt));
-                    cartChoice.put(restuarantMenuSelected.getItemId(), restuarantMenuSelected);
+                    restuarantMenu.setSelected("1");
+                    restuarantMenu.setItemCount(String.valueOf(countInInt));
+                    mainAdapterInterface.updatePrice(restuarantMenu);
                 } else {
                     //TODO toast to show
+
                 }
             });
 
             btnAdd.setOnClickListener(v -> {
-                countInInt += 1;
+                countInInt = 1;
                 tvCount.setText(String.valueOf(countInInt));
                 changeCounter(false);
-                restuarantMenuSelected.setSelected("1");
-                restuarantMenuSelected.setItemCount("1");
-                cartChoice.put(restuarantMenuSelected.getItemId(), restuarantMenuSelected);
-                updateCount(true);
+                restuarantMenu.setSelected("1");
+                restuarantMenu.setItemCount("1");
+                mainAdapterInterface.updatePrice(restuarantMenu);
             });
 
         }
@@ -161,20 +142,5 @@ public class MenuAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 btnAdd.setVisibility(View.INVISIBLE);
             }
         }
-    }
-
-    int count = 0;
-
-    public Map<String, RestuarantMenu> getCartItem() {
-        return cartChoice;
-    }
-
-    private void updateCount(boolean isInc) {
-        if (isInc)
-            count += 1;
-        else
-            count -= 1;
-        mainAdapterInterface.updateCount(count);
-        mainAdapterInterface.updatePrice(cartChoice);
     }
 }

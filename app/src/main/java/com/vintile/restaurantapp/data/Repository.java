@@ -23,9 +23,9 @@ import static android.content.Context.JOB_SCHEDULER_SERVICE;
  **/
 public class Repository {
 
-    private Context context;
+    private final Context context;
 
-    private AppDatabase db;
+    private final AppDatabase db;
 
 
 

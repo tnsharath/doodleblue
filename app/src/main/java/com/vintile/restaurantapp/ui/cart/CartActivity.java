@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,18 +16,13 @@ import com.vintile.restaurantapp.util.VerticalSpacingItemDecoration;
 import com.vintile.restaurantapp.viewmodels.ViewModelProviderFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
 
-//TODO total count;
 public class CartActivity extends DaggerAppCompatActivity implements MainAdapterInterface {
-
-    private static final String TAG = "CartActivity";
 
     private CartViewModel viewModel;
 
@@ -45,6 +39,7 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
     private TextView tvTotalCost;
 
     private TextView tvShowMore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,35 +51,35 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
         viewModel = new ViewModelProvider(this, providerFactory).get(CartViewModel.class);
         initRecyclerView();
         subscribeObserver();
-
+        updateTotalCost();
         tvShowMore.setOnClickListener(v -> showMore());
+    }
+
+    private void updateTotalCost() {
+        viewModel.getTotalPrice().observe(this, cost -> tvTotalCost.setText(String.valueOf(cost)));
     }
 
     private void showMore() {
         adapter.refreshList(cartMenu);
         tvShowMore.setVisibility(View.INVISIBLE);
     }
+
     private List<RestuarantMenu> cartMenu = new ArrayList<>();
 
-    double price = 0.0;
     private void subscribeObserver() {
         viewModel.getMenu().observe(this, menus -> {
-            Log.d(TAG, "onChanged: Success " + menus.size());
             cartMenu = menus;
 
-
-            for (RestuarantMenu menu: cartMenu){
-                price += Double.parseDouble(menu.getPrice()) * Double.parseDouble(menu.getItemCount());
+            for (RestuarantMenu menu : cartMenu) {
+                viewModel.setCartList(menu);
             }
-
-            tvTotalCost.setText(String.valueOf(price));
-            if (menus.size() > 2){
+            if (menus.size() > 2) {
                 List<RestuarantMenu> sortedMenu = new ArrayList<>();
                 sortedMenu.add(menus.get(0));
                 sortedMenu.add(menus.get(1));
                 tvShowMore.setVisibility(View.VISIBLE);
                 adapter.setMenus(sortedMenu);
-            }else{
+            } else {
                 adapter.setMenus(cartMenu);
             }
         });
@@ -97,26 +92,9 @@ public class CartActivity extends DaggerAppCompatActivity implements MainAdapter
         recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void updateCount(int count) {
-        //Unused
-    }
-
 
     @Override
-     public void updatePrice(Map<String, RestuarantMenu> cartChoice) {
-
-        Iterator it = cartChoice.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            RestuarantMenu menu = (RestuarantMenu) pair.getValue();
-            price += Integer.parseInt(menu.getPrice()) * Integer.parseInt(menu.getItemCount());
-
-            it.remove();
-        }
-
-
-        tvTotalCost.setText(String.valueOf(price));
-
+    public void updatePrice(RestuarantMenu cartChoice) {
+        viewModel.setCartList(cartChoice);
     }
 }

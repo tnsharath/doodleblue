@@ -10,4 +10,11 @@
 
     <string name="decrement">-</string>
     <string name="increment">+</string>
+    <string name="restuarant_image">Restuarant Image</string>
+    <string name="info">Info</string>
+    <string name="send">Send</string>
+    <string name="inka_restaurant">Inka Restaurant</string>
+    <string name="_5_0_200_all_days_09_00_am_06_00_pm">5.0(200+)| All days : 09:00 AM -06:00 PM</string>
+    <string name="reach_us_at_1234567890">Reach us at : 1234567890</string>
+    <string name="book_a_table">Book a Table</string>
 </resources>

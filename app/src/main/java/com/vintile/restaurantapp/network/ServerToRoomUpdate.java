@@ -46,12 +46,12 @@ public class ServerToRoomUpdate {
 
         call.enqueue(new Callback<List<RestuarantMenu>>() {
             @Override
-            public void onResponse(Call<List<RestuarantMenu>> call, Response<List<RestuarantMenu>> response) {
+            public void onResponse(@NonNull Call<List<RestuarantMenu>> call, @NonNull Response<List<RestuarantMenu>> response) {
                 taskExecutor.execute(new RoomUpdateTask(response.body()));
             }
 
             @Override
-            public void onFailure(Call<List<RestuarantMenu>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<RestuarantMenu>> call,@NonNull Throwable t) {
             }
         });
     }

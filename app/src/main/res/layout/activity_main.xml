@@ -47,7 +47,6 @@
         android:layout_gravity="center"
         android:background="@color/colorPrimary"
         android:drawableStart="@drawable/ic_shopping_cart"
-        android:text=" VIEW CART (5 ITEMS)"
         android:textColor="@color/colorLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +72,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/restuarant_image"/>
 
     <TextView
         android:id="@+id/textView4"

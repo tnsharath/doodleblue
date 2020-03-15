@@ -3,6 +3,7 @@ package com.vintile.restaurantapp.util;
 import android.graphics.Rect;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -17,7 +18,7 @@ public class VerticalSpacingItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+    public void getItemOffsets(@NonNull Rect outRect,@NonNull View view,@NonNull RecyclerView parent,
                                RecyclerView.State state) {
         outRect.bottom = verticalSpaceHeight;
     }
