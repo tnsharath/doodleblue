@@ -1,0 +1,33 @@
+{
+	"d": {
+		"results": [
+			{
+				"__metadata": {
+					"id": "LeaveCatSet('01')",
+					"uri": "LeaveCatSet('01')",
+					"type": ""
+				},
+				"Leave": "01",
+				"LeaveDesc": "Leave Category 1"
+			},
+			{
+				"__metadata": {
+					"id": "LeaveCatSet('02')",
+					"uri": "LeaveCatSet('02')",
+					"type": ""
+				},
+				"Leave": "02",
+				"LeaveDesc": "Leave Category 2"
+			},
+			{
+				"__metadata": {
+					"id": "LeaveCatSet('03')",
+					"uri": "LeaveCatSet('03')",
+					"type": ""
+				},
+				"Leave": "03",
+				"LeaveDesc": "Leave Category 3"
+			}
+		]
+	}
+}
